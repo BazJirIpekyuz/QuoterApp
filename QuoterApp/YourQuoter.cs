@@ -21,7 +21,7 @@ namespace QuoterApp
             _logger = logger;
         }
 
-        public async Task<double> GetQuoteAsync(string instrumentId, int quantity)
+        public async Task<double> GetQuote(string instrumentId, int quantity)
         {
             ValidateIntrumentId(instrumentId);
             ValidateQuantity(quantity);

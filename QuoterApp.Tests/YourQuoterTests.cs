@@ -26,7 +26,7 @@ namespace QuoterApp.Tests
             await _quoterAppFixture.PopulateCacheWithTestMarketOrdersAsync();
 
             // Act
-            var result = await _quoter.GetQuoteAsync(instrumentId, quantity);
+            var result = await _quoter.GetQuote(instrumentId, quantity);
 
             // Assert
             Assert.Equal(bestAvailableTotalPrice, result, 3);

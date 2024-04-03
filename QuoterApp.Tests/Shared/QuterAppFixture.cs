@@ -28,15 +28,16 @@ namespace QuoterApp.Tests.Shared
 
             try
             {
+                var marketOrderTestDataSource = ServiceProvider.GetRequiredService<IMarketOrderTestDataSource>();
+                var marketOrders = marketOrderTestDataSource.GetData();
+                var firstMarketOrder = marketOrders[0];
+                var distributedCache = ServiceProvider.GetRequiredService<IDistributedCache<List<MarketOrder>>>();
+                _isCachePopulated = await distributedCache.GetAsync(firstMarketOrder.InstrumentId) != null;
+
                 if (_isCachePopulated)
                 {
                     return;
                 }
-
-                var marketOrderTestDataSource = ServiceProvider.GetRequiredService<IMarketOrderTestDataSource>();
-                var marketOrders = marketOrderTestDataSource.GetData();
-
-                var distributedCache = ServiceProvider.GetRequiredService<IDistributedCache<List<MarketOrder>>>();
 
                 foreach (var marketOrder in marketOrders)
                 {
